@@ -45,19 +45,31 @@ def api_extraction(data):
     """Create a dictionary with the selected information received from the github api"""
     dictionary=[]
     for x in range(0,len(data)):
-
-        name={'number':data[x]['number'],
-        'title':re.findall('\[(.*?)\]',data[x]['title'].replace('-',' '),re.IGNORECASE),
-        'users':data[x]['user']['login'],
-        'state':data[x]['state'],
-        'created_at':data[x]['created_at'],
-        'updated_at':data[x]['updated_at'],
-        'closed_at':data[x]['closed_at'],
-        'html_url':data[x]['html_url'],
-        'meme':'no'
-        }
-        dictionary.append(name)
-
+        try:
+            name={'number':data[x]['number'],
+            'title':re.match('\[(.*?)\]',data[x]['title'],re.IGNORECASE).group(1).replace('-',' '),
+            'users':data[x]['user']['login'],
+            'state':data[x]['state'],
+            'created_at':data[x]['created_at'],
+            'updated_at':data[x]['updated_at'],
+            'closed_at':data[x]['closed_at'],
+            'html_url':data[x]['html_url'],
+            'meme':'no'
+            }
+            dictionary.append(name)
+        except:
+            name={'number':data[x]['number'],
+            'title':re.match('\[(.*?)\]',data[x-1]['title'],re.IGNORECASE).group(1).replace('-',' '),
+            'users':data[x]['user']['login'],
+            'state':data[x]['state'],
+            'created_at':data[x]['created_at'],
+            'updated_at':data[x]['updated_at'],
+            'closed_at':data[x]['closed_at'],
+            'html_url':data[x]['html_url'],
+            'meme':'no'
+            }
+            dictionary.append(name)
+            
     return dictionary
 
 

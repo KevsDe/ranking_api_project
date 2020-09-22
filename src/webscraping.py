@@ -10,23 +10,25 @@ def get_meme(url):
         img = soup.select('.edit-comment-hide')[1].select('img')[0].get('src')
         return img
     except:
-        return 'Not meme available'
+        return None
 
 
 def get_github_users(url):
-    teachers = ['@ferrero','@WHYTEWYLL','@agalvezcorell']
+    teachers = ['@ferrero', '@WHYTEWYLL', '@agalvezcorell', '@github']
     res = requests.get(url)
     soup = bs4.BeautifulSoup(res.text, 'lxml')
-    user_github = [re.findall("@\w*",str(soup.find("div", {"id": "partial-users-participants"}).findAll('img')[e])) for e in range(0,len(soup.find("div", {"id": "partial-users-participants"}).findAll('img')))]
-    merged = list(itertools.chain.from_iterable(user_github))
-    for x in teachers:
-        if x in merged:
-            merged.remove(x)
-    return merged
+    user_github = re.findall("@\w*", str(soup))
+    user_github = list(set(user_github))
+    for teacher in teachers:
+        if teacher in user_github:
+            user_github.remove(teacher)
+
+    return user_github
 
 def meme_lst(lista):
     """Insert the meme url from the comment poge"""
-    for x in range(0,5):
+    for x in range(0,len(lista)):
         print(x)
-        lista[x]['meme'] = get_meme(lista[x]['html_url'])
         lista[x]['users'] = get_github_users(lista[x]['html_url'])
+        lista[x]['meme'] = get_meme(lista[x]['html_url'])
+
