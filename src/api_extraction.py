@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import math
 import itertools
 import os
+import re
 load_dotenv()
 
 
@@ -46,9 +47,8 @@ def api_extraction(data):
     for x in range(0,len(data)):
 
         name={'number':data[x]['number'],
-        'title':data[x]['title'],
-        'user1':data[x]['user']['login'],
-        'user2':'No',
+        'title':re.findall('\[(.*?)\]',data[x]['title'].replace('-',' '),re.IGNORECASE),
+        'users':data[x]['user']['login'],
         'state':data[x]['state'],
         'created_at':data[x]['created_at'],
         'updated_at':data[x]['updated_at'],
@@ -68,3 +68,4 @@ def get_all_pulls(last_page):
         pull.append(api_extraction(get_github(f"/repos/ironhack-datalabs/datamad0820/issues",query_params={"state": "all", "page": {page}, "per_page": "100"})))
     merged = list(itertools.chain.from_iterable(pull))
     return merged
+

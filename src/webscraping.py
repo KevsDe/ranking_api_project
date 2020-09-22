@@ -22,5 +22,11 @@ def get_github_users(url):
     for x in teachers:
         if x in merged:
             merged.remove(x)
-
     return merged
+
+def meme_lst(lista):
+    """Insert the meme url from the comment poge"""
+    for x in range(0,5):
+        print(x)
+        lista[x]['meme'] = get_meme(lista[x]['html_url'])
+        lista[x]['users'] = get_github_users(lista[x]['html_url'])
