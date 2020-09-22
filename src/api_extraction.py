@@ -47,12 +47,14 @@ def api_extraction(data):
 
         name={'number':data[x]['number'],
         'title':data[x]['title'],
-        'user':data[x]['user']['login'],
+        'user1':data[x]['user']['login'],
+        'user2':'No',
         'state':data[x]['state'],
         'created_at':data[x]['created_at'],
         'updated_at':data[x]['updated_at'],
         'closed_at':data[x]['closed_at'],
-        'html_url':data[x]['html_url']
+        'html_url':data[x]['html_url'],
+        'meme':'no'
         }
         dictionary.append(name)
 
