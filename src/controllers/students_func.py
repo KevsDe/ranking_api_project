@@ -5,10 +5,10 @@ from src.helpers.json_response import asJsonResponse
 
 
 
-def user_already_in_db(collection, username):
+def user_already_in_db(username):
     
-    result = collection.find_one({"user": username})
-    return result is not None and len(result) > 0
+    result = db.students.find_one({"user": username})
+    return result != None and len(result) > 0
 
 def user_already_in_col(username):
     # Search a company in mongodb database
@@ -17,12 +17,12 @@ def user_already_in_col(username):
     founduser = db["pull"].find_one(
         {"users": searchRE}, projection)
 
-    return founduser is not None and len(founduser) > 0
+    return founduser != None and len(founduser) > 0
 
 
-def insert_new_student(collection, name):
+def insert_new_student(name):
     new_student = {
         "user": name
     }
-    result = collection.insert_one(new_student)
+    result = db.students.insert_one(new_student)
     return {"_id": str(result.inserted_id)}

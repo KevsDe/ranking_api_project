@@ -17,10 +17,10 @@ def get_meme(url):
 
 def get_github_users(url):
     """Web scraping for github comment page to get the students github user"""
-    teachers = ['@ferrero', '@WHYTEWYLL', '@agalvezcorell', '@github']
+    teachers = ['@ferrero-felipe', '@WHYTEWYLL', '@agalvezcorell', '@github']
     res = requests.get(url)
     soup = bs4.BeautifulSoup(res.text, 'lxml')
-    user_github = re.findall("@\w*", str(soup))
+    user_github = re.findall("@\w+\S\w\w*", str(soup))
     user_github = list(set(user_github))
     for teacher in teachers:
         if teacher in user_github:
