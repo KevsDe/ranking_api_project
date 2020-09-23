@@ -2,8 +2,10 @@ import requests
 import bs4
 import re
 import itertools
+import time
 
 def get_meme(url):
+    """Web scraping for github comment page to extract the instructor comment meme"""
     res = requests.get(url)
     soup = bs4.BeautifulSoup(res.text, 'lxml')
     try:
@@ -14,6 +16,7 @@ def get_meme(url):
 
 
 def get_github_users(url):
+    """Web scraping for github comment page to get the students github user"""
     teachers = ['@ferrero', '@WHYTEWYLL', '@agalvezcorell', '@github']
     res = requests.get(url)
     soup = bs4.BeautifulSoup(res.text, 'lxml')
@@ -25,10 +28,16 @@ def get_github_users(url):
 
     return user_github
 
+
+   
+
+
 def meme_lst(lista):
-    """Insert the meme url from the comment poge"""
-    for x in range(0,len(lista)):
+    """Insert the meme url and students github users from the comment poge to the dictionary with the info extracted from the github api"""
+    for x in range(0,(len(lista))):
         print(x)
         lista[x]['users'] = get_github_users(lista[x]['html_url'])
+        print(get_github_users(lista[x]['html_url']))
         lista[x]['meme'] = get_meme(lista[x]['html_url'])
+        time.sleep(3)
 

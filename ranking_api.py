@@ -13,9 +13,8 @@ print(last_p)
 
 #Get a dictionary with all the pull request
 lista_estudiante = ape.get_all_pulls(last_page)
-
+#Shape the required information
 sws.meme_lst(lista_estudiante)
 
-
+#Upload the ingormation to mongodb
 mip.mongo_import(lista_estudiante)
-
