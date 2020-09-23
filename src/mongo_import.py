@@ -7,3 +7,6 @@ def mongo_import(lista):
     for x in range(0,len(lista)):
         result = db.pull.insert_one(lista[x])
     print(f'finished creating {len(lista)} pull requests')
+
+
+
