@@ -16,3 +16,6 @@ def create_lab(lab_name):
         return lfu.insert_new_lab(lab_name)
     else:
         return f"El lab {lab_name} no ha sido parte de Ironhack Datamad0820."
+
+
+@app.route("/lab/<lab_id>/search")
