@@ -3,6 +3,7 @@ import bs4
 import re
 import itertools
 import time
+import src.api_extraction as ape
 
 def get_meme(url):
     """Web scraping for github comment page to extract the instructor comment meme"""
@@ -13,6 +14,7 @@ def get_meme(url):
         return img
     except:
         return None
+    
 
 
 def get_github_users(url):
@@ -37,7 +39,6 @@ def meme_lst(lista):
     for x in range(0,(len(lista))):
         print(x)
         lista[x]['users'] = get_github_users(lista[x]['html_url'])
-        print(get_github_users(lista[x]['html_url']))
         lista[x]['meme'] = get_meme(lista[x]['html_url'])
         time.sleep(3)
 
