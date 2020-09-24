@@ -18,7 +18,7 @@ lista_estudiantes = ape.get_all_pulls(last_page)
 ape.last_commit(lista_estudiantes)
 sws.meme_lst(lista_estudiantes)
 
-#Upload the ingormation to mongodb
+#Upload the information to mongodb
 mip.mongo_import(lista_estudiantes)
 
 mip.mongo_lab_id_update()
