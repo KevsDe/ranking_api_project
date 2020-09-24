@@ -50,9 +50,11 @@ def api_extraction(data):
             'title':re.match('\[(.*?)\]',data[x]['title'],re.IGNORECASE).group(1).replace('-',' '),
             'users':data[x]['user']['login'],
             'state':data[x]['state'],
+            'teacher':data[x]['assignee'].get('login'),
             'last_commit':data[x]['created_at'],
             'closed_at':data[x]['closed_at'],
             'meme':'no',
+            'lab_id':re.match('\[(.*?)\]',data[x]['title'],re.IGNORECASE).group(1).replace('-',' '),
             'commits_url':data[x]['commits_url'],
             'html_url':data[x]['html_url']
             }
@@ -62,9 +64,11 @@ def api_extraction(data):
             'title':re.match('\[(.*?)\]',data[x-1]['title'],re.IGNORECASE).group(1).replace('-',' '),
             'users':data[x]['user']['login'],
             'state':data[x]['state'],
+            'teacher':'not assigned yet',
             'last_commit':data[x]['created_at'],
             'closed_at':data[x]['closed_at'],
             'meme':'no',
+            'lab_id':re.match('\[(.*?)\]',data[x-1]['title'],re.IGNORECASE).group(1).replace('-',' '),
             'commits_url':data[x]['commits_url'],
             'html_url':data[x]['html_url']
             }
