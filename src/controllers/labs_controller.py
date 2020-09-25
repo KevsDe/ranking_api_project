@@ -4,8 +4,10 @@ import src.controllers.labs_func as lfu
 from src.database import db
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from src.helpers.json_response import asJsonResponse
 
 @app.route("/lab/create/<lab_name>")
+@asJsonResponse
 def create_lab(lab_name):
     """Check if the lab is parf of ironhack datama0820 and if the lab has been add or not"""
 
@@ -20,13 +22,14 @@ def create_lab(lab_name):
 
 
 @app.route("/lab/<lab_id>/search")
+@asJsonResponse
 def lab_analysis(lab_id):
     amanda, felipe, juan, al, fl, jl= lfu.teacher_time(lab_id)
 
     return {
-        "Number of open PR": db.pull.count({'$and':[ {'lab_id':ObjectId(f'{lab_id}')}, {'state':'open'} ]}),
-        "Number of closed PR":db.pull.count({'$and':[ {'lab_id':ObjectId(f'{lab_id}')} , {'state':'closed'} ]}),
-        "Percentage of completeness": float(f"{(db.pull.count({'$and':[ {'lab_id':ObjectId(f'{lab_id}')}, {'state':'closed'} ]})/(db.pull.count({'$and':[ {'lab_id':ObjectId(f'{lab_id}')}, {'state':'open'} ]})+db.pull.count({'$and':[ {'lab_id':ObjectId(f'{lab_id}')} , {'state':'closed'} ]}))*100):.2f}"),
+        "Number of open PR": db.pull.count_documents({'$and':[ {'lab_id':ObjectId(f'{lab_id}')}, {'state':'open'} ]}),
+        "Number of closed PR":db.pull.count_documents({'$and':[ {'lab_id':ObjectId(f'{lab_id}')} , {'state':'closed'} ]}),
+        "Percentage of completeness": float(f"{(db.pull.count_documents({'$and':[ {'lab_id':ObjectId(f'{lab_id}')}, {'state':'closed'} ]})/(db.pull.count_documents({'$and':[ {'lab_id':ObjectId(f'{lab_id}')}, {'state':'open'} ]})+db.pull.count_documents({'$and':[ {'lab_id':ObjectId(f'{lab_id}')} , {'state':'closed'} ]}))*100):.2f}"),
         "Students who have not delivered the pull request":lfu.missing_pr(lab_id),
         "Number of students who have not delivered the pull request":len(lfu.missing_pr(lab_id)),
         "List of unique memes used for the lab":lfu.meme_pr(lab_id),
@@ -34,3 +37,10 @@ def lab_analysis(lab_id):
         "Felipe grade time in hours":f'It took Felipe {felipe} hours to correct {fl} labs',
         "Juan grade time in hours":f'It took Juan {juan} hours to correct {jl} labs'
     }
+
+
+
+@app.route("/lab/memeranking")
+@asJsonResponse
+def memeranking():
+    return lfu.ranking_meme()

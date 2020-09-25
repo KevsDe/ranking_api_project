@@ -5,6 +5,7 @@ from src.helpers.json_response import asJsonResponse
 from src.database import db
 
 @app.route("/student/create/<student_name>")
+@asJsonResponse
 def create_student(student_name):
     """Check if the user is parf of ironhack datama0820 and if the user has been add or not"""
  
@@ -24,6 +25,6 @@ def create_student(student_name):
 def search_students():
     """display all Ironhack students from datamad0820"""
 
-    students = db.students.find({}, {'_id': False})
+    students = db.students.find({}, {'_id': 0})
 
     return students

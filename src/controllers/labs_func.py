@@ -92,3 +92,60 @@ def teacher_time(lab_id):
         felipe = f'{felipe_time/felipe_labs:.2f}'
         juan = 0
         return amanda,felipe,juan,amanda_labs,felipe_labs,juan_labs
+
+
+def all_labs():
+
+    all_labs = []
+    projection = {'title':1,'_id':0}
+    for x in db.pull.find({},projection):
+        all_labs.append(x.get('title'))
+    all_labs = list(set(all_labs))
+    return all_labs
+
+
+
+
+
+def memes_num_mem(titulo):
+
+    memes = []
+    projection = {'meme':1,'_id':0}
+    for meme in db.pull.find({'title':f'{titulo}'},projection):
+        if meme.get('meme') != None:
+            memes.append(meme.get('meme'))
+    memes = list(set(memes))
+    num_mem = []
+    for x in memes:
+        num_mem.append(db.pull.count_documents({'$and':[ {'title':f'{titulo}'} , {'meme':f'{x}'} ]}))
+    
+    return memes,num_mem
+
+
+
+def meme_collector(memes,num_mem,lab):  
+
+
+    if len(memes) > 3:
+        lst_tup = list(zip(memes,num_mem))
+        lst_tup = (sorted(lst_tup, key = lambda x: x[1]))[:len(lst_tup)-4:-1]
+        dictionary = {f'{lab}':dict(lst_tup)}
+        return dictionary
+    elif len(memes) < 3:
+        lst_tup = list(zip(memes,num_mem))
+        lst_tup = (sorted(lst_tup, key = lambda x: x[1]))[::-1]
+        dictionary = {f'{lab}':dict(lst_tup)}
+        return dictionary
+
+
+
+def ranking_meme():
+    ranking = []
+
+    alllabs = all_labs()
+    
+    for lab in alllabs:
+        meme, num_mem = memes_num_mem(lab)
+        ranking.append(meme_collector(meme,num_mem,lab))
+    
+    return ranking
