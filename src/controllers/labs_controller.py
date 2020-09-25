@@ -5,6 +5,7 @@ from src.database import db
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from src.helpers.json_response import asJsonResponse
+from random import choice
 
 @app.route("/lab/create/<lab_name>")
 @asJsonResponse
@@ -44,3 +45,12 @@ def lab_analysis(lab_id):
 @asJsonResponse
 def memeranking():
     return lfu.ranking_meme()
+
+
+@app.route("/lab/<lab_id>/meme")
+@asJsonResponse
+def random_meme(lab_id):
+    x = choice(lfu.meme_pr(lab_id))
+    return f'The Ironhack staff worked very hard selecting this meme, enjoy it {x}'
+
+
