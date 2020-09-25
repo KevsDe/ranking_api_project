@@ -2,6 +2,9 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
 
+client = MongoClient(port=27017)
+db=client.datamad0820
+
 def mongo_import(lista):
     """Upload the info extractred from github to mongodb"""
     client = MongoClient(port=27017)
@@ -11,12 +14,12 @@ def mongo_import(lista):
     print(f'finished creating {len(lista)} pull requests')
 
 
-client = MongoClient(port=27017)
-db=client.datamad0820
+
 
 
 
 def mongo_lab_id_update():
+    """update the mongodb pull collection"""
     myquery = {'lab_name_pull':'[lab-api-scavenger-game]'}
     newvalues = {'$set':{'lab_name_pull':'cambiado'}}
 
@@ -29,16 +32,3 @@ def mongo_lab_id_update():
 
         db.pull.update_many(myquery,newvalues)  
     
-
-
-
-
-
-
-
-
-    
-
-
-
-

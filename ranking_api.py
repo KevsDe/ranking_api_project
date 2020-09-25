@@ -21,7 +21,7 @@ sws.meme_lst(lista_estudiantes)
 #Upload the information to mongodb
 mip.mongo_import(lista_estudiantes)
 
-mip.mongo_lab_id_update()
+
 
 
 

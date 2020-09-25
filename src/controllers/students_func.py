@@ -6,12 +6,12 @@ from src.helpers.json_response import asJsonResponse
 
 
 def user_already_in_db(username):
-    
+    """Check if an student has been add to the database"""
     result = db.students.find_one({"user": username})
     return result != None and len(result) > 0
 
 def user_already_in_col(username):
-    # Search a company in mongodb database
+    """Check if an student has been add to the database"""
     projection = {'users':1}
     searchRE = re.compile(f"{username}", re.IGNORECASE)
     founduser = db["pull"].find_one(
@@ -21,6 +21,7 @@ def user_already_in_col(username):
 
 
 def insert_new_student(name):
+    """Add a new student to the database"""
     new_student = {
         "user": name
     }

@@ -123,7 +123,8 @@ def get_github_2(endpoint, apiKey=os.getenv("GITHUB_APIKEY"), query_params={}):
 
 
 def last_commit(lista):
-     for x in range(0,(len(lista))):
+    """Get the information of the last commit in the pull request"""
+    for x in range(0,(len(lista))):
         print(x)
         lista[x]['last_commit'] = get_github_2(lista[x]['commits_url'])[-1].get('commit').get('author').get('date')
 

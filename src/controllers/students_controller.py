@@ -10,13 +10,13 @@ def create_student(student_name):
     """Check if the user is parf of ironhack datama0820 and if the user has been add or not"""
  
     if sfu.user_already_in_db(student_name):
-        return f"{student_name} ya existe en la base de datos."
+        return f"{student_name} already exist in the database."
 
         
     if sfu.user_already_in_col(student_name):
         return sfu.insert_new_student(student_name)
     else:
-        return f"El usuario {student_name} no es parte de Ironhack Datamad0820."
+        return f"The github user {student_name} is not part of Ironhack Datamad0820."
 
 
 @app.route("/student/all")

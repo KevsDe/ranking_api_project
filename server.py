@@ -1,5 +1,4 @@
 from src.app import app
-import src.controllers.instructors_controller
 import src.controllers.students_controller
 import src.controllers.labs_controller
 from config import PORT

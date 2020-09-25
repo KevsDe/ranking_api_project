@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 def lab_already_in_db(labname):
-    
+    """Find out if the lab name is in the db"""
     result = db.labs.find_one({"lab_name":labname})
     return result != None and len(result) > 0
 
@@ -22,8 +22,8 @@ def lab_already_in_col(labname):
 
     return foundlab != None and len(foundlab) > 0
 
-
 def insert_new_lab(labname):
+    """inser new name in the database"""
     new_lab = {
         "lab_name": labname,
         "lab_name_pull": f"[{labname}]".replace(' ','-')
@@ -34,6 +34,7 @@ def insert_new_lab(labname):
 
 
 def missing_pr(lab_id):
+    """Find Ironhack datamad0820 students with pending pr"""
     all_students = []
     projection = {'user':1,'_id':0}
     for x in db.students.find({},projection):
@@ -50,6 +51,7 @@ def missing_pr(lab_id):
 
 
 def meme_pr(lab_id):
+    """Return a list with all the memes used for that lab"""
     memes = []
     projection = {'meme':1,'_id':0}
     for meme in db.pull.find({'lab_id':ObjectId(f'{lab_id}')},projection):
@@ -59,6 +61,7 @@ def meme_pr(lab_id):
     return memes
 
 def teacher_time(lab_id):
+    """Return the time spent for the ta grading the labs"""
     juan_time = 0
     amanda_time = 0
     felipe_time = 0
@@ -95,7 +98,7 @@ def teacher_time(lab_id):
 
 
 def all_labs():
-
+    """Return a list with all the labs"""
     all_labs = []
     projection = {'title':1,'_id':0}
     for x in db.pull.find({},projection):
@@ -108,7 +111,7 @@ def all_labs():
 
 
 def memes_num_mem(titulo):
-
+    """Return the list of memes and the number of times that meme was used"""
     memes = []
     projection = {'meme':1,'_id':0}
     for meme in db.pull.find({'title':f'{titulo}'},projection):
@@ -124,8 +127,7 @@ def memes_num_mem(titulo):
 
 
 def meme_collector(memes,num_mem,lab):  
-
-
+    """Create a dictionary with the top memes"""
     if len(memes) > 3:
         lst_tup = list(zip(memes,num_mem))
         lst_tup = (sorted(lst_tup, key = lambda x: x[1]))[:len(lst_tup)-4:-1]
@@ -140,6 +142,7 @@ def meme_collector(memes,num_mem,lab):
 
 
 def ranking_meme():
+    """return the top memes"""
     ranking = []
 
     alllabs = all_labs()
