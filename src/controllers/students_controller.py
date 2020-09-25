@@ -2,7 +2,6 @@ from src.app import app
 from flask import request, Response
 import src.controllers.students_func as sfu
 from src.helpers.json_response import asJsonResponse
-from src.database import db
 
 
 @app.route("/student/create/<student_name>")

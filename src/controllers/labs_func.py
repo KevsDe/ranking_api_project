@@ -4,7 +4,7 @@ from src.helpers.json_response import asJsonResponse
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
-from config import DBURL
+from src.config import DBURL
 client = MongoClient(DBURL)
 db = client.get_database()
 
@@ -14,7 +14,7 @@ db = client.get_database()
 def lab_already_in_db(labname):
     """Find out if the lab name is in the db"""
     result = db.labs.find_one({"lab_name":labname})
-    return result != None and len(result) > 0
+    return result != None 
 
 def lab_already_in_col(labname):
     """Find out if the lab name is in the db"""
@@ -23,7 +23,7 @@ def lab_already_in_col(labname):
     foundlab = db["pull"].find_one(
         {"title": searchRE}, projection)
 
-    return foundlab != None and len(foundlab) > 0
+    return foundlab != None
 
 def insert_new_lab(labname):
     """inser new name in the database"""

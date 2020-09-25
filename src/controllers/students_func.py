@@ -8,7 +8,7 @@ from src.helpers.json_response import asJsonResponse
 def user_already_in_db(username):
     """Check if an student has been add to the database"""
     result = db.students.find_one({"user": username})
-    return result != None and len(result) > 0
+    return result != None
 
 def user_already_in_col(username):
     """Check if an student has been add to the database"""
@@ -17,7 +17,7 @@ def user_already_in_col(username):
     founduser = db["pull"].find_one(
         {"users": searchRE}, projection)
 
-    return founduser != None and len(founduser) > 0
+    return founduser != None
 
 
 def insert_new_student(name):
