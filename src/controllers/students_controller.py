@@ -4,6 +4,7 @@ import src.controllers.students_func as sfu
 from src.helpers.json_response import asJsonResponse
 from src.database import db
 
+
 @app.route("/student/create/<student_name>")
 @asJsonResponse
 def create_student(student_name):
