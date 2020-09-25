@@ -32,4 +32,10 @@ def mongo_lab_id_update():
         newvalues = {'$set':{'lab_id':x['_id']}}
 
         db.pull.update_many(myquery,newvalues)  
-    
+
+
+
+def mongo_drop():
+    """Drop de datamad0820 database"""
+
+    MongoClient().drop_database('datamad0820')

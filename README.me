@@ -44,8 +44,10 @@ For this project, my objective was to write my own API in flask retrieving infor
 *The ratio of completed corrections
 *Students who have not delivered the pull request
 *The list of unique memes used for that lab
-*Instructor grade time in hours: (pr_close_time-last_commit_time) 
-
+*Instructor grade time in hours: (pr_close_time-last_commit_time)
+## Files
+* ranking_api.py: Extract all the information create a database named "datamad08020" and a collection named "pull" to MongoDB.
+* database_shaper.py: Create to collections, add the students and labs information to mongodb and add a new row to the "pull" collection with the "lab id".
+* drop_mongoDB: Drop the database "datamad0820" form mongoDB.
 
 ## Thanks 
-Thanks for reading and for been interested in this project.
