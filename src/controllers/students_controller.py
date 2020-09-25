@@ -28,3 +28,10 @@ def search_students():
     students = db.students.find({}, {'_id': 0})
 
     return students
+
+@app.route('/')
+def welcome():
+    return {
+        "status": "OK",
+        "message": "Welcome to Datamad0820"
+    }

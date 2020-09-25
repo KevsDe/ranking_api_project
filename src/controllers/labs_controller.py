@@ -55,3 +55,12 @@ def random_meme(lab_id):
     return f'The Ironhack staff worked very hard selecting this meme, enjoy it {x}'
 
 
+@app.route("/lab/all")
+@asJsonResponse
+def search_lab_id():
+    """display all Ironhack labs id from datamad0820"""
+
+    lab_id = db.labs.find({}, {'_id': 1})
+
+    return lab_id
+

@@ -4,6 +4,9 @@ from src.helpers.json_response import asJsonResponse
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
+from config import DBURL
+client = MongoClient(DBURL)
+db = client.get_database()
 
 
 
@@ -69,7 +72,7 @@ def teacher_time(lab_id):
     amanda_labs = 0
     felipe_labs = 0
     projection = {'teacher':1,'_id':0, 'last_commit':1, 'closed_at':1}
-    for x in db.pull.find({'$and':[ {'lab_id':ObjectId('5f6cf5f9730aa5fbbe42cac9')} , {'state':'closed'} ]},projection):
+    for x in db.pull.find({'$and':[ {'lab_id':ObjectId(f'{lab_id}')} , {'state':'closed'} ]},projection):
         close_time = datetime.strptime(x.get('closed_at'), "%Y-%m-%dT%H:%M:%SZ")
         open_time = datetime.strptime(x.get('last_commit'), "%Y-%m-%dT%H:%M:%SZ")
         queue_time = (close_time-open_time).total_seconds()/3600

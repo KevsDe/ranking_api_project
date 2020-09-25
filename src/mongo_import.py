@@ -1,14 +1,15 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
+from config import DBURL
 
-client = MongoClient(port=27017)
-db=client.datamad0820
+client = MongoClient(DBURL)
+db = client.get_database()
 
 def mongo_import(lista):
     """Upload the info extractred from github to mongodb"""
-    client = MongoClient(port=27017)
-    db=client.datamad0820
+    #client = MongoClient(port=27017)
+    #db=client.datamad0820
     for x in range(0,len(lista)):
         result = db.pull.insert_one(lista[x])
     print(f'finished creating {len(lista)} pull requests')
