@@ -27,7 +27,7 @@ Libraries:
 * In adittion to functions that I created during the whole process.
 
 ## Summary
-For this project, my objective was to write my own API in flask retrieving information extracted from Github API and performing web scraping that is previously stored on MongoDB.
+For this project, my objective was to write my own API on flask retrieving information extracted from Github API and performing web scraping that is previously stored on MongoDB.
 ## Valid endpoints:
 * /student/create/<studentname>  - Purpose: Create a student and save into DB - Params: studentname the student name - Returns: student_id
 * /student/all - Purpose: List all students in database - Returns: An array of student objects
